@@ -31,8 +31,8 @@ public class ServeurTcpCE extends Thread{
 				+ " -s " + message.getIpSource() + " -j MARK --set-mark 20; " 
 				+ "iptables -" + message.getAction() + " PREROUTING -t mangle -d " + message.getIpDest()
 				+ " -s " + message.getIpSource() + " -j MARK --set-mark 20; ";
-				System.out.println(commande);
-				commande = "echo";
+				//System.out.println(commande);
+				//commande = "echo";
 				try {
 					Process process = Runtime.getRuntime().exec(String.format(commande, homeDirectory));
 					int exitCode = process.waitFor();

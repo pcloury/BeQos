@@ -1,3 +1,7 @@
 /ClientTcp.class
 /Message.class
 /ServeurTcp.class
+/ClientTcpBB.class
+/GestionMessage.class
+/ServeurTcpCE.class
+/main.class
