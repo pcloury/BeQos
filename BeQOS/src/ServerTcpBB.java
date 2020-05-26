@@ -50,10 +50,17 @@ public class ServerTcpBB extends Thread{
 				
 				
 				//envoi vers CE local puis vers CE distant
-
-				clientToLocalCE.envoiMessage(message);
-				message.swapIp();
-				clientToDistantCE.envoiMessage(message);
+				if (message.getIpsource().split(".")[3].equals("37")) {
+					clientToLocalCE.envoiMessage(message);
+					message.swapIp();
+					clientToDistantCE.envoiMessage(message);
+				}
+				else {
+					clientToDistantCE.envoiMessage(message);
+					message.swapIp();
+					clientToLocalCE.envoiMessage(message);
+					
+				}
 
 				
 				
