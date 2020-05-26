@@ -35,7 +35,6 @@ public class ServeurTcpCE extends Thread{
 				+ "iptables -" + message.getAction() + " PREROUTING -t mangle -d " + message.getIpDest()
 				+ " -s " + message.getIpSource() + " -j DSCP --set-dscp-class EF";
 				System.out.println(commande);
-				commande = "echo";
 				try {
 					Process process = Runtime.getRuntime().exec(String.format(commande, homeDirectory));
 					int exitCode = process.waitFor();
