@@ -31,9 +31,11 @@ public class ServerTcpCE extends Thread{
 				Message message = (Message) in.readObject();
 				String homeDirectory = System.getProperty("user.home");
 				String commande = "iptables -" + message.getAction() +  " POSTROUTING -t mangle -d " + message.getIpDest()
-				+ " -s " + message.getIpSource() + " -j DSCP --set-dscp-class EF " 
+				+ " -s " + message.getIpSource() + "--dport"+message.getPortDestDistant()+
+				" -j DSCP --set-dscp-class EF " 
 				+ "iptables -" + message.getAction() + " PREROUTING -t mangle -d " + message.getIpDest()
-				+ " -s " + message.getIpSource() + " -j DSCP --set-dscp-class EF";
+				+ " -s " + message.getIpSource() + "--dport"+message.getPortDestLocal()+
+				" -j DSCP --set-dscp-class EF";
 				//System.out.println(commande);
 				try {
 					Process process = Runtime.getRuntime().exec(String.format(commande, homeDirectory));
