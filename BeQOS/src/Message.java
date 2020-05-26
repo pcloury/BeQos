@@ -15,13 +15,15 @@ public class Message implements Serializable{
 	//action a effectuer : ajouter une règle avec A, supprimer avec D
 	private String action;
 	
-	private int portDest;
+	private int portDestLocal;
 	
+	private int portDestDistant;
 	
-	public Message(String init_ipSource, String init_ipDest, int init_portDest, String init_action) {
+	public Message(String init_ipSource, String init_ipDest, int init_portDestLocal, int init_portDestDistant, String init_action) {
 		this.ipSource = init_ipSource;
 		this.ipDest = init_ipDest;
-		this.portDest = init_portDest;
+		this.portDestLocal = init_portDestLocal;
+		this.portDestDistant = init_portDestDistant;
 		this.action = init_action;
 	}
 	
@@ -33,8 +35,12 @@ public class Message implements Serializable{
 		return this.ipDest;
 	}
 	
-	public int getPortDest() {
-		return this.portDest;
+	public int getPortDestLocal() {
+		return this.portDestLocal;
+	}
+	
+	public int getPortDestDistant() {
+		return this.portDestDistant;
 	}
 	
 	public String getAction() {
@@ -49,12 +55,29 @@ public class Message implements Serializable{
 		this.ipDest = ipD;
 	}
 	
-	public void setPortDest (int pDest) {
-		this.portDest = pDest;
+	public void setPortDestLocal (int pDest) {
+		this.portDestLocal = pDest;
+	}
+	
+	public void setPortDestDistant( int pDest) {
+		this.portDestDistant = pDest;
+		
 	}
 	
 	public void setAction( String ac) {
 		this.action = ac;
+	}
+	//permet d'échanger les adresses ip et ports, pour pouvoir
+	//reserver de "gauche a droite" ou de "droite a gauche" (CE BB -> CE distant
+	// ou l'inverse)
+	public void swapIp() {
+		String ip = ipSource;
+		this.ipSource = this.ipDest;
+		this.ipDest = ip;
+		int port = portDestLocal;
+		portDestLocal = portDestDistant;
+		portDestDistant = port;
+		
 	}
 	
 	

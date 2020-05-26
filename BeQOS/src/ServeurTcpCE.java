@@ -9,6 +9,9 @@ import java.util.*;
 
 public class ServeurTcpCE extends Thread{
 	public int portSource;
+	//si local est assigné a true, c'est le serveur qui tourne sur le CE
+	//local (même réseau que BB), sinon il tourne sur le CE distant.
+	public boolean local;
 	
 	public ServeurTcpCE(int init_portSource) {
 		this.portSource = init_portSource;
@@ -28,11 +31,11 @@ public class ServeurTcpCE extends Thread{
 				Message message = (Message) in.readObject();
 				String homeDirectory = System.getProperty("user.home");
 				String commande = "iptables -" + message.getAction() +  " POSTROUTING -t mangle -d " + message.getIpDest()
-				+ " -s " + message.getIpSource() + " -j MARK --set-mark 20; " 
+				+ " -s " + message.getIpSource() + " -j DSCP --set-dscp-class EF " 
 				+ "iptables -" + message.getAction() + " PREROUTING -t mangle -d " + message.getIpDest()
-				+ " -s " + message.getIpSource() + " -j MARK --set-mark 20; ";
-				//System.out.println(commande);
-				//commande = "echo";
+				+ " -s " + message.getIpSource() + " -j DSCP --set-dscp-class EF";
+				System.out.println(commande);
+				commande = "echo";
 				try {
 					Process process = Runtime.getRuntime().exec(String.format(commande, homeDirectory));
 					int exitCode = process.waitFor();
