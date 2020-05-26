@@ -1,4 +1,4 @@
-package openjsip.proxy;
+//package openjsip.proxy;
 
 //importations
 import java.net.*;
@@ -15,8 +15,8 @@ public class ServerTcpBB extends Thread{
 	//nbre de connections effectuées par des applis overIP a un instant donné
 	public int nbrConnection;
 	// clients tcp permettant de communiquer avec les deux CE
-	private ClientTcpBB clientToLocalCE;
-	private ClientTcpBB clientToDistantCE;
+	public ClientTcpBB clientToLocalCE;
+	public ClientTcpBB clientToDistantCE;
 	
 	
 	public ServerTcpBB(int init_portSource) {
