@@ -21,7 +21,7 @@ public class ServerTcpBB extends Thread{
 	
 	public ServerTcpBB(int init_portSource) {
 		this.portSource = init_portSource;
-		start();
+		//start();
 	}
 	
 	public void run() {
@@ -36,7 +36,8 @@ public class ServerTcpBB extends Thread{
 			while(true) {
 				Message message = (Message) in.readObject();
 				if (message.getAction().equals("A") && this.nbrConnection <3){
-					clientBB.envoiMessage(message);
+					//clientBB.envoiMessage(message);
+					clientToDistantCE.envoiMessage(message);
 					nbrConnection ++;
 					System.out.println("On a une demande de connexion en plus acceptee");
 
@@ -51,13 +52,13 @@ public class ServerTcpBB extends Thread{
 				//envoi vers CE local puis vers CE distant
 
 				clientToLocalCE.envoiMessage(message);
-				message.swap();
+				message.swapIp();
 				clientToDistantCE.envoiMessage(message);
 
 				
 				
 			}
-			}
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,11 +66,13 @@ public class ServerTcpBB extends Thread{
 		
 		}
 
-}
+	}
+	
 	public void setClientToDistantCE(ClientTcpBB init_client){
 		this.clientToDistantCE = init_client;
 	}
 	
 	public void setClientToLocalCE(ClientTcpBB init_client) {
 		this.clientToLocalCE = init_client;
+	}
 }

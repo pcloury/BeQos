@@ -7,13 +7,13 @@ import javax.swing.JList;
 import java.util.*;
 
 
-public class ServeurTcpCE extends Thread{
+public class ServerTcpCE extends Thread{
 	public int portSource;
 	//si local est assigné a true, c'est le serveur qui tourne sur le CE
 	//local (même réseau que BB), sinon il tourne sur le CE distant.
 	public boolean local;
 	
-	public ServeurTcpCE(int init_portSource) {
+	public ServerTcpCE(int init_portSource) {
 		this.portSource = init_portSource;
 		start();
 	}
