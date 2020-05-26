@@ -19,7 +19,6 @@ public class Message implements Serializable{
 	
 	private int portDestDistant;
 	
-	
 	public Message(String init_ipSource, String init_ipDest, int init_portDestLocal, int init_portDestDistant, String init_action) {
 		this.ipSource = init_ipSource;
 		this.ipDest = init_ipDest;
@@ -68,11 +67,17 @@ public class Message implements Serializable{
 	public void setAction( String ac) {
 		this.action = ac;
 	}
-	
+	//permet d'échanger les adresses ip et ports, pour pouvoir
+	//reserver de "gauche a droite" ou de "droite a gauche" (CE BB -> CE distant
+	// ou l'inverse)
 	public void swapIp() {
 		String ip = ipSource;
 		this.ipSource = this.ipDest;
 		this.ipDest = ip;
+		int port = portDestLocal;
+		portDestLocal = portDestDistant;
+		portDestDistant = port;
+		
 	}
 	
 	

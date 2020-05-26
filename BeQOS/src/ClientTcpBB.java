@@ -9,7 +9,8 @@ import java.util.*;
 
 
 public class ClientTcpBB extends Thread{
-	
+	//adresse ip dest
+	public String ipDest;
 	//port destination du routeur de bordure CE
 	private int portDest;
 	//boolean permettant de détecter le besoin d'une nouvelle reservation
@@ -17,7 +18,8 @@ public class ClientTcpBB extends Thread{
 	//message de reservation envoyé vers le routeur CE
 	private Message message;
 	
-	public ClientTcpBB(int init_portDest) {
+	public ClientTcpBB(String init_ipDest,int init_portDest) {
+		this.ipDest = init_ipDest;
 		this.portDest = init_portDest;
 		start();
 	}
@@ -28,7 +30,7 @@ public class ClientTcpBB extends Thread{
 		//création du socket
 		try {
 			System.out.println("Lancement Client BB \n");
-			Socket client = new Socket("localhost",portDest);
+			Socket client = new Socket(ipDest,portDest);
 			ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 			while(true){
