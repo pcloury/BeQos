@@ -10,10 +10,15 @@ import java.util.*;
 
 
 public class ServerTcpBB extends Thread{
+	//port source du serveur
 	public int portSource;
+	//nbre de connections effectuées par des applis overIP a un instant donné
 	public int nbrConnection;
+	// clients tcp permettant de communiquer avec les deux CE
+	private ClientTcpBB clientToLocalCE;
+	private ClientTcpBB clientToDistantCE;
 	
-	private ClientTcpBB clientBB;
+	
 	public ServerTcpBB(int init_portSource) {
 		this.portSource = init_portSource;
 		start();
@@ -38,7 +43,20 @@ public class ServerTcpBB extends Thread{
 				} else if(message.getAction().equals("D")){
 					nbrConnection --;
 					System.out.println("On a une demande de fin de connexion");
-				}			
+				}
+				
+				//envoi de la réservation / libération
+				
+				
+				//envoi vers CE local puis vers CE distant
+
+				clientToLocalCE.envoiMessage(message);
+				message.swap();
+				clientToDistantCE.envoiMessage(message);
+
+				
+				
+			}
 			}
 		
 		} catch (Exception e) {
@@ -48,7 +66,10 @@ public class ServerTcpBB extends Thread{
 		}
 
 }
-	public void setClientTcp(ClientTcpBB init_client){
-		this.clientBB = init_client;
+	public void setClientToDistantCE(ClientTcpBB init_client){
+		this.clientToDistantCE = init_client;
 	}
+	
+	public void setClientToLocalCE(ClientTcpBB init_client) {
+		this.clientToLocalCE = init_client;
 }
